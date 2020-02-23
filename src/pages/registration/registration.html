@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <ion-title>Registrar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<h3>Registro</h3>
+
+    <ion-list>
+	  <ion-item>
+		<button ion-button outline item-left>Registro</button>
+		<button ion-button outline item-right (click)="goToLogin()">Ingresar</button>
+	  </ion-item>
+	</ion-list>
+
+    <form #credentials="ngForm" (ngSubmit)="authAltura.postUser(credentials,conection)">
+		<ion-list>
+		  <ion-item>
+		    <ion-input required type="text" [(ngModel)]="credentials.username" ngControl="username" name="username" #username="ngModel" email (change)="authAltura.onChangeInput($event)" placeholder="Correo El&eacute;ctronico"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="username.errors?.email" color="danger" padding-left>Por favor utilize un correo v&aacute;lido.</p-->
+		  <ion-item>
+		    <ion-input required type="password" [(ngModel)]="credentials.password1" ngControl="password1" name="password1" #password="ngModel" [minlength]=6 (change)="authAltura.onChangeInput($event)" placeholder="Contrase&ntilde;a"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="password1.errors?.minlength" color="danger" padding-left>Por favor complete su contrase&ntilde;a.</p-->
+		  <ion-item>
+		    <ion-input required type="password" [(ngModel)]="credentials.password2" ngControl="password2" name="password2" #password="ngModel" [minlength]=6 (change)="authAltura.onChangeInput($event)" placeholder="Confirmar Contrase&ntilde;a"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="password2.errors?.minlength" color="danger" padding-left>Por favor confirme su contrase&ntilde;a.</p-->
+		  <p *ngIf="(credentials.password1?.length >=6 ) && (credentials.password2?.length >=6 ) && (credentials.password1!=credentials.password2)" color="danger" padding-left>Las contraseñas no coinciden.</p>
+		  <p *ngIf="authAltura.serverError" color="danger" padding-left>Existe un problema con la conexi&oacute;n, intente nuevamente.</p>
+		</ion-list>
+
+		<ion-spinner *ngIf="authAltura.processing"></ion-spinner>
+
+		<div padding>
+		  <button ion-button block type="submit" color="primary">Registrar</button>
+		</div>
+	</form>
+</ion-content>

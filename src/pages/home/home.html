@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<!-- in case is not loged in -->
+<ion-content padding *ngIf="!altura_token">
+  <h3>Home - Sin Auntenticar :(</h3>
+</ion-content>
+
+<!-- otherwise -->
+<ion-content padding *ngIf="altura_token">
+		<h3>Home - Autenticado :)</h3>
+    <div *ngIf="altura_token"> Autenticado: Altura</div>
+</ion-content>

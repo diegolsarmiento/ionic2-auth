@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <ion-title>Ingresar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+	<h3>Ingreso</h3>
+
+    <ion-list>
+	  <ion-item>
+		<button ion-button outline item-left>Ingreso</button>
+		<button ion-button outline item-right (click)="goToRegistration()">Registro</button>
+	  </ion-item>
+	</ion-list>
+
+    <form #credentials="ngForm" (ngSubmit)="authAltura.postUser(credentials,conection)">
+		<ion-list>
+		  <ion-item>
+		    <ion-input required type="text" [(ngModel)]="credentials.username" ngControl="username" name="username" #username="ngModel" email (change)="authAltura.onChangeInput($event)" placeholder="Correo El&eacute;ctronico"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="username.errors?.email" color="danger" padding-left>Por favor utilize un correo v&aacute;lido.</p-->
+		  <ion-item>
+		    <ion-input required type="password" [(ngModel)]="credentials.password" ngControl="password" name="password" #password="ngModel" [minlength]=6 (change)="authAltura.onChangeInput($event)" placeholder="Contrase&ntilde;a"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="password.errors?.minlength" color="danger" padding-left>Por favor complete su contrase&ntilde;a.</p-->
+		  <p *ngIf="authAltura.serverError" color="danger" padding-left>La direcci&oacute;n  de correo o contrase&ntilde;a no es v&aacute;lida.</p>
+		</ion-list>
+
+		<ion-spinner *ngIf="authAltura.processing"></ion-spinner>
+		
+		<div padding>
+		  <button ion-button block type="submit" color="primary">Ingresar</button>
+		</div>
+	</form>
+</ion-content>

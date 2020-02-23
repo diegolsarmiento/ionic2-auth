@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <ion-title>Recuperar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<h3>Recuperar</h3>
+
+    <ion-list>
+	  <ion-item>
+		<button ion-button outline item-left>Recuperar</button>
+		<button ion-button outline item-right (click)="goToLogin()">Ingresar</button>
+	  </ion-item>
+	</ion-list>
+
+    <form #credentials="ngForm" (ngSubmit)="authPassword.recoverPassword(credentials,conection)">
+		<ion-list>
+		  <ion-item>
+		    <ion-input required type="text" [(ngModel)]="credentials.email" ngControl="email" name="email" #email="ngModel" email (change)="authPassword.onChangeInput($event)" placeholder="Correo El&eacute;ctronico"></ion-input>
+		  </ion-item>
+		  <!--p *ngIf="email.errors?.email" color="danger" padding-left>Por favor utilize un correo v&aacute;lido.</p-->
+		  <p *ngIf="authPassword.serverError" color="danger" padding-left>La direcci&oacute;n  de correo o contrase&ntilde;a no es v&aacute;lida.</p>
+		</ion-list>
+
+		<ion-spinner *ngIf="authPassword.processing"></ion-spinner>
+		
+		<div padding>
+		  <button ion-button block type="submit" color="primary">Recuperar</button>
+		</div>
+	</form>
+</ion-content>
